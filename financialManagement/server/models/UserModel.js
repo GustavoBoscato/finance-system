@@ -4,7 +4,8 @@ import { Sequelize, DataTypes } from "sequelize";
         name: DataTypes.STRING,
         email: DataTypes.STRING,
         password: DataTypes.STRING,
-        photo: DataTypes.BLOB
+        photo: DataTypes.BLOB,
+        id: DataTypes.UUIDV4
 
     });
     
