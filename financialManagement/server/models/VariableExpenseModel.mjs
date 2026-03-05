@@ -1,9 +1,13 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db/postgree";
+import { sequelize } from "../db/postgree.mjs";
 export const VariableExpense = sequelize.define('expenseVariable', {
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
-        id: DataTypes.UUIDV4
+         id: {
+            type: DataTypes.UUIDV4,
+            primaryKey: true
+            }
+
     });
