@@ -6,7 +6,7 @@ export const FixedExpensive = sequelize.define('fixedExpensive', {
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
         id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.UUID,
             primaryKey: true
             }
 

@@ -1,11 +1,14 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/postgree.mjs";
 export const FixedIncome = sequelize.define('fixedIncome', {
-        name: DataTypes.STRING,
+        name: {
+                type: DataTypes.STRING,
+                allowNull: false
+        },
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
          id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.UUID,
             primaryKey: true
             }
 

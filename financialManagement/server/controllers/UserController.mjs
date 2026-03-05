@@ -1,6 +1,7 @@
 
 import { User } from "../models/UserModel.mjs";
 import bcrypt from 'bcrypt';
+import { getId } from "../utils/getId.mjs";
 export const register = async (req, res) => {
     const {name, email, photo, password} = req.body;
     if (!name || !email || !password) {
@@ -16,8 +17,10 @@ export const register = async (req, res) => {
         email: email, 
         photo: photo,
         password: hashPassword,
+        id: getId()
         
     });
+
     return res.status(201).json({
         id: userCreated.id,
         name: userCreated.name,

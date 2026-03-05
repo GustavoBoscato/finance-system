@@ -1,12 +1,15 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/postgree.mjs";
 export const VariableIncome = sequelize.define('variableIncome', {
-        name: DataTypes.STRING,
+        name: {
+                type: DataTypes.STRING,
+                allowNull: false
+        },
         description: DataTypes.STRING,
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
          id: {
-            type: DataTypes.UUIDV4,
+            type: DataTypes.UUID,
             primaryKey: true
             }
 
