@@ -1,6 +1,5 @@
 
 import { User } from "../models/UserModel.mjs";
-import { UUIDV4 } from "sequelize";
 import bcrypt from 'bcrypt';
 export const register = async (req, res) => {
     const {name, email, photo, password} = req.body;
@@ -26,4 +25,31 @@ export const register = async (req, res) => {
 
     })
     
+}
+export const login = async (req, res) =>{
+    const {email, password} = req.body;
+    try {
+        if (!email || !password) {
+            return res.status(400).json({error: 'Email or password invalid.'})
+        }
+        const findUser = await User.findOne({where: {email}});
+        if (!findUser) {
+            return res.status(404).json({error: 'User not found'})
+        }
+        const hashPassword = findUser.password;
+
+        const validPassword = await bcrypt.compare(password, hashPassword);
+
+        if (!validPassword) {
+            return res.status(401).json({error: 'Password incorrect'});
+        }
+        return res.status(200).json({
+            id: findUser.id,
+            name: findUser.name,
+            email: findUser.email
+        });
+        
+    } catch (error) {
+        return res.status(500).json({error: 'Error server'} )
+    }
 }
