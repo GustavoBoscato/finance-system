@@ -4,6 +4,7 @@ export const FixedExpensive = sequelize.define('FixedExpensive', {
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         color: DataTypes.STRING,
-        value: DataTypes.FLOAT
+        value: DataTypes.FLOAT,
+        id: DataTypes.UUIDV4
 
     });

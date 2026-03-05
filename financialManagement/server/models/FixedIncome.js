@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/postgree";
-export const VariableExpense = sequelize.define('expenseVariable', {
+export const FixedIncome = sequelize.define('FixedIncome', {
         name: DataTypes.STRING,
-        description: DataTypes.STRING,
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
         id: DataTypes.UUIDV4
