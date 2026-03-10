@@ -11,7 +11,10 @@ import { Sequelize, DataTypes } from "sequelize";
             allowNull: false
         },
         password: DataTypes.STRING,
-        photo: DataTypes.BLOB,
+        photo: {
+            type: DataTypes.STRING,
+            allowNull: true
+                },
          id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,

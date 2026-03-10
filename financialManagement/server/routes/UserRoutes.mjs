@@ -3,3 +3,4 @@ import { register, login } from "../controllers/UserController.mjs";
 export const userRoutes = Router();
 
 userRoutes.post('/register' , register);
+userRoutes.post('/login' , login);

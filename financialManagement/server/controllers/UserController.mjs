@@ -1,9 +1,9 @@
 
 import { User } from "../models/UserModel.mjs";
 import bcrypt from 'bcrypt';
-import { getId } from "../utils/getId.mjs";
 export const register = async (req, res) => {
-    const {name, email, photo, password} = req.body;
+    try {
+        const {name, email, photo, password} = req.body;
     if (!name || !email || !password) {
         return res.status(400).json({error: 'Name, email or password is incorrect.'});
     }
@@ -17,7 +17,6 @@ export const register = async (req, res) => {
         email: email, 
         photo: photo,
         password: hashPassword,
-        id: getId()
         
     });
 
@@ -27,6 +26,10 @@ export const register = async (req, res) => {
         email: userCreated.email
 
     })
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+    
     
 }
 export const login = async (req, res) =>{
