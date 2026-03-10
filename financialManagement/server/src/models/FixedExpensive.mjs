@@ -10,6 +10,7 @@ export const FixedExpensive = sequelize.define('fixedExpensive', {
         value: DataTypes.FLOAT,
         id: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
             }
 
