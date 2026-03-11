@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/postgree.mjs";
-export const FixedExpensive = sequelize.define('fixedExpensive', {
+export const FixedExpense = sequelize.define('fixedExpense', {
         name: {
                 type: DataTypes.STRING,
                 allowNull: false
