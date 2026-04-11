@@ -2,11 +2,13 @@ import express from 'express';
 import { sequelize } from './src/db/postgree.mjs';
 import { userRoutes } from './src/routes/UserRoutes.mjs';
 import { fixedExpensiveRoutes } from './src/routes/FixedExpenseRoutes.mjs';
+import { fixedIncomeRoutes } from './src/routes/FixedIncome.mjs';
 const app = express();
 
 app.use(express.json());
 app.use('/user', userRoutes)
 app.use('/fixedExpense', fixedExpensiveRoutes)
+app.use('/fixedIncome', fixedIncomeRoutes);
 app.listen(3000,  async () => {
     try {
         await sequelize.sync(() => {

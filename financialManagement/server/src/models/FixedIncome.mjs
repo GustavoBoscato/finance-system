@@ -9,8 +9,10 @@ export const FixedIncome = sequelize.define('fixedIncome', {
         value: DataTypes.FLOAT,
          id: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
             }
+
 
 })
         

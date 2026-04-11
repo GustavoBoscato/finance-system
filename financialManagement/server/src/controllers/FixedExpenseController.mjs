@@ -1,5 +1,4 @@
-import { FixedExpense } from "../models/FixedExpense.mjs";
-import { Op } from "sequelize";
+
 import { deleteFixedUpdateService, getNameFixedExpenseService, updateFixedExpenseService, } from "../service/FIxedExpenseService.mjs";
 import { getAllFixedExpenseService, createFixedExpenseService } from "../service/FIxedExpenseService.mjs";
 export async function getNameFixedExpense(req, res) {
