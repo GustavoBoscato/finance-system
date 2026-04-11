@@ -10,6 +10,7 @@ export const VariableExpense = sequelize.define('expenseVariable', {
         value: DataTypes.FLOAT,
          id: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true
             }
 
