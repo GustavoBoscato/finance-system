@@ -21,13 +21,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) =>{
     
     try {
-        const login = await LoginService(req.body);
+        const login = await LoginService(req);
 
-        return res.status(200).json({
-            id: login.id,
-            name: login.name,
-            email: login.email
-        });
+        return res.status(200).json(login);
         
     } catch (error) {
         return res.status(400).json({error: error.message})

@@ -1,8 +1,11 @@
+    import 'dotenv/config'
     import { User } from "../models/UserModel.mjs";
     import bcrypt from 'bcrypt';
-
+    import jwt from 'jsonwebtoken';
+    
     export async function LoginService(data)  {
-        const {email, password} = data
+        const {email, password} = data.body
+        
         if (!email || !password) {
             throw new Error('Email or password invalid.');
         }
@@ -17,7 +20,19 @@
         if (!validPassword) {
             throw new Error('Password incorrect');
         }
-        return findUser
+
+        const token = jwt.sign({id: findUser.id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const findUserWithoutPassword = {
+            name: findUser.name,
+            email: findUser.email,
+            id: findUser.id
+        };
+
+
+        return {
+            user: findUserWithoutPassword,
+            token: token
+        }
     }
 
     export async function RegisterService(data) {
@@ -27,7 +42,7 @@
     }
     const validEmail = await User.findOne({where: {email}});
     if (validEmail) {
-        throw new Error('EMail exist to database');
+        throw new Error('Email exist to database');
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const userCreated = await User.create({
@@ -37,6 +52,8 @@
         password: hashPassword,
         
     });
+
+
     return userCreated;
         
     }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createVariableExpense, deleteVariableExpense, getAllVariableExpense, 
-    updateVariableExpense, getNameVariableExpense } from "../controllers/VariableExpense.mjs";
+    updateVariableExpense, getNameVariableExpense } from "../controllers/VariableExpenseController.mjs";
 
     export const variableExpenseRouter = Router();
 
