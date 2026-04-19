@@ -42,7 +42,7 @@ export async function updateFixedIncome(req, res) {
     
     try {
         const fixedUpdated = await updateFixedIncomeService(req.params, req.body);
-        console.log(fixedUpdated)
+        
         return res.status(200).json(fixedUpdated);
            
     } catch (error) {

@@ -6,14 +6,16 @@ import { fixedExpensiveRoutes } from './src/routes/FixedExpenseRoutes.mjs';
 import { fixedIncomeRoutes } from './src/routes/FixedIncome.mjs';
 import { variableExpenseRouter } from './src/routes/VariableExpense.mjs';
 import { variableIncomeRoutes } from './src/routes/VariableIncomeRoutes.mjs';
+import { AuthMiddleware } from './src/middlewares/Auth.mjs';
 const app = express();
 
 app.use(express.json());
 app.use('/user', userRoutes)
-app.use('/fixedExpense', fixedExpensiveRoutes)
-app.use('/fixedIncome', fixedIncomeRoutes);
-app.use('/variableExpense', variableExpenseRouter);
-app.use('/variableIncome', variableIncomeRoutes);
+
+app.use('/fixedExpense', AuthMiddleware, fixedExpensiveRoutes)
+app.use('/fixedIncome', AuthMiddleware, fixedIncomeRoutes);
+app.use('/variableExpense', AuthMiddleware, variableExpenseRouter);
+app.use('/variableIncome', AuthMiddleware, variableIncomeRoutes);
 app.listen(3000,  async () => {
     try {
         await sequelize.sync(() => {

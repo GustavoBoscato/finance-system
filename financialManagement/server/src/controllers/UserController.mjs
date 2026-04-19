@@ -11,7 +11,7 @@ export const register = async (req, res) => {
         name: userCreated.name,
         email: userCreated.email
 
-    })
+    });
     } catch (error) {
         return res.status(400).json({error: error.message})
     }

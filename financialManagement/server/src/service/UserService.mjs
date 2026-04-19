@@ -21,13 +21,13 @@
             throw new Error('Password incorrect');
         }
 
-        const token = jwt.sign({id: findUser.id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({id: findUser.id}, process.env.JWT_SECRET, {expiresIn: '30m'});
         const findUserWithoutPassword = {
             name: findUser.name,
             email: findUser.email,
             id: findUser.id
         };
-
+            data.user = token;
 
         return {
             user: findUserWithoutPassword,
