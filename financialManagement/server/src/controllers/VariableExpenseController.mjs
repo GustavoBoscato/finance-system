@@ -26,8 +26,9 @@ export async function createVariableExpense(req, res) {
    
 
     try {
-        const ExpenseCreate = await createVariableExpenseService(req.body);
-
+        console.log(req.user)
+        const ExpenseCreate = await createVariableExpenseService(req);
+        
         return res.status(201).json({
             name: ExpenseCreate.name,
             description: ExpenseCreate.description,

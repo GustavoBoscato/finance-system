@@ -22,16 +22,18 @@ import { Op } from "sequelize";
         return expenses
     }
     export async function createVariableExpenseService(data) {
-        const {name, description, color, value} = data;
+        const {name, description, color, value} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             
         }
+        console.log(data.user.id)
         const ExpenseCreate = await VariableExpense.create({
             name: name,
             description: description,
             color: color,
-            value: value
+            value: value,
+            userId: data.user.id,
         });
 
         return ExpenseCreate;

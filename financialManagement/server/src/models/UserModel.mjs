@@ -1,5 +1,6 @@
 import { sequelize } from "../db/postgree.mjs";
 import { Sequelize, DataTypes } from "sequelize";
+
     export const User = sequelize.define('user', {
         name: {
                 type: DataTypes.STRING,
@@ -19,9 +20,9 @@ import { Sequelize, DataTypes } from "sequelize";
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-            }
-
-    
+            },
+            
 
     });
+    
     

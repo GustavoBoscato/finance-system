@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/postgree.mjs";
+import { User } from "./UserModel.mjs";
 export const FixedIncome = sequelize.define('fixedIncome', {
         name: {
                 type: DataTypes.STRING,
@@ -11,8 +12,11 @@ export const FixedIncome = sequelize.define('fixedIncome', {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
+            },
+        userId:{
+                type: DataTypes.UUID,
+                allowNull: false
             }
 
 
 })
-        

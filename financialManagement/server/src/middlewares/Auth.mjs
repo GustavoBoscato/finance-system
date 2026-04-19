@@ -18,10 +18,10 @@ export async function AuthMiddleware(req, res, next) {
         }
 
         req.user = verifyToken;
-        console.log('banana')
+        console.log(req.user)
         next()
     } catch (error) {
-        return res.status(500).json('Internal Server Error');   
+        return res.status(500).json({error: error});   
     }
     
 }
