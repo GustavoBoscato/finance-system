@@ -31,7 +31,8 @@ import { Op } from "sequelize";
             name: name,
             description: description,
             color: color,
-            value: value
+            value: value,
+            userId: data.user.id
         });
 
         return IncomeCreate;
