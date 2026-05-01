@@ -1,6 +1,6 @@
 
 
-export const Dashboard = () => {
+export const Despesas = () => {
     return (
         <div>
             
