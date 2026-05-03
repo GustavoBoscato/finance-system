@@ -1,9 +1,9 @@
-import React from 'react'
-
+import { Header } from "../Components/Header"
+import styles from './AlocacaoRenda.module.css';
 export const AlocacaoRenda = () => {
     return (
-        <div>
-            
+        <div className={styles.main}>
+            <Header nome='Alocação de Renda'></Header>            
         </div>
     )
 }

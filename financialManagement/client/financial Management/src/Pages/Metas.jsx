@@ -1,9 +1,10 @@
-import React from 'react'
+import { Header } from "../Components/Header";
+import styles from './Metas.module.css';
 
 export const Metas = () => {
     return (
-        <div>
-            
+        <div className={styles.main}>
+            <Header nome='Metas'></Header>        
         </div>
     )
 }

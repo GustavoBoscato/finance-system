@@ -1,9 +1,9 @@
-
-
+import { Header } from "../Components/Header"
+import styles from './Relatorios.module.css'
 export const Relatorios = () => {
     return (
-        <div>
-            
-        </div>
+            <div className={styles.main}>
+                <Header nome='Relatórios'></Header>        
+            </div>
     )
 }
