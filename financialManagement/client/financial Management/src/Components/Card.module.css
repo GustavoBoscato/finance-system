@@ -2,8 +2,8 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 16px;
-  padding: 30px;
-  width: 200px;
+  padding: 40px;
+  width: 250px;
   transition: 0.2s;
   margin-top: 30px;
 }
@@ -12,10 +12,10 @@
 }
 .titulo {
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .valor {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
 }
