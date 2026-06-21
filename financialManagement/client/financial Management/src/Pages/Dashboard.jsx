@@ -14,14 +14,9 @@ import {
   BarChart,
   Pie,
   PieChart,
+  Sector,
 } from "recharts";
-const dataArray = [
-  { nome: "01/01/2026", valor: 1000 },
-  { nome: "01/02/2026", valor: 2000 },
-  { nome: "01/03/2026", valor: 2000 },
-  { nome: "01/04/2026", valor: 2000 },
-  { nome: "01/05/2026", valor: 5000 },
-];
+
 const data = [
   { mes: "Jan", receitas: 3000, despesas: 1500, saldo: 1500 },
   { mes: "Fev", receitas: 2800, despesas: 1800, saldo: 1000 },
@@ -31,11 +26,22 @@ const data = [
   { mes: "Jun", receitas: 3500, despesas: 3000, saldo: 500 },
 ];
 const dataPie = [
-  { name: "Contas", value: 40 },
-  { name: "Investimentos", value: 30 },
-  { name: "Lazer", value: 20 },
-  { name: "Reserva", value: 10 },
+  { name: "Necessidades", value: 50, fill: "#8B5CF6" },
+  { name: "Lazer", value: 30, fill: "#22C55E" },
+  { name: "Investimentos", value: 20, fill: "#EF4444" },
 ];
+const colors = [
+  "var(--purple-main)",
+  "var(--purple-neon)",
+  "var(--success)",
+  "var(--danger)",
+  "#F59E0B",
+];
+const customColorsPie = () => {
+  return colors.map((index) => {
+    <Sector fill={colors[index % 2]}></Sector>;
+  });
+};
 export const Dashboard = () => {
   return (
     <div className={styles.main}>
@@ -91,7 +97,7 @@ export const Dashboard = () => {
       </section>
 
       <div className={styles.divInferior}>
-        <div className={styles.divAcumulado}>
+        <div className={styles.divGraficosInferiores}>
           <div className={styles.chart2}>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={data}>
@@ -110,22 +116,29 @@ export const Dashboard = () => {
           </div>
           <Card valor={5000} titulo="Receita Total" tipo="success"></Card>
         </div>
-        <ResponsiveContainer width="100%" height={250}>
-          <PieChart>
-            <Pie
-              data={dataPie}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius={80}
-              innerRadius={20}
-              fill="var(--purple-main)"
-            />
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className={styles.divGraficosInferiores}>
+          <div className={styles.chart2}>
+
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart
+      >
+              <Pie
+                data={dataPie}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={140}
+                innerRadius={20}
+              ></Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+            
+          </div>
+          <Card valor={5000} titulo="Receita Alocada" tipo="success"></Card>
+        </div>
       </div>
     </div>
   );

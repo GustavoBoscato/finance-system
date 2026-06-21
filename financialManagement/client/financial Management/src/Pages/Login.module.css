@@ -2,17 +2,73 @@
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    gap: 80px;
+    padding: 20px;
 }
 .form{
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: stretch;
     flex-direction: column;
     background-color: var(--bg-secondary);
-    padding: 30px;
+    padding: 40px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
-    width: 25%;
-    height: 45%;
+    width: 100%;
+    max-width: 500px;
+    gap: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--purple-main);
+}
+button {
+  width: 100%;
+  background: var(--purple-main);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+}
+
+button:hover {
+  background: var(--purple-neon);
+}
+.imagemLogin img {
+
+    width: 100%;
+    max-width: 500px;
+}
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+h1,
+.form > p:first-of-type {
+  text-align: center;
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.link {
+  color: var(--purple-main);
+  cursor: pointer;
 }
