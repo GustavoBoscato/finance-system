@@ -7,10 +7,17 @@ import { fixedIncomeRoutes } from './src/routes/FixedIncome.mjs';
 import { variableExpenseRouter } from './src/routes/VariableExpense.mjs';
 import { variableIncomeRoutes } from './src/routes/VariableIncomeRoutes.mjs';
 import { AuthMiddleware } from './src/middlewares/Auth.mjs';
+import cors from 'cors';
 import './src/models/Associations.mjs';
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use
 app.use('/user', userRoutes)
 
 app.use('/fixedExpense', AuthMiddleware, fixedExpensiveRoutes)
