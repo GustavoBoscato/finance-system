@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styles from './Login.module.css';
+import {Link} from 'react-router-dom';
 
+import {useNavigate} from 'react-router-dom';
 export const Login = () => {
+
+    const navigate = useNavigate();
 
     const LoginAPI = (email, password) => {
         const body = {
@@ -16,7 +20,10 @@ export const Login = () => {
         body: JSON.stringify(body)
     }).then((response) => response.json())
     .then((data) => {
+
         console.log(data);
+        localStorage.setItem('token', data.token);
+        navigate('/dashboard');
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -54,7 +61,9 @@ export const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Entrar</button>
-                <p className={styles.link}>Cadastre-se</p>
+                <p className={styles.link}>
+                    <Link to="/cadastro">Cadastre-se</Link>
+                </p>
            </form>
         </div>
     )

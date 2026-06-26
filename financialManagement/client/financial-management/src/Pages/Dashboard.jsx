@@ -1,6 +1,7 @@
 import { Card } from "../Components/Card";
 import { Header } from "../Components/Header";
 import styles from "./Dashboard.module.css";
+import { useAuth } from "../function/useAuth";
 import {
   CartesianGrid,
   Legend,
@@ -16,7 +17,7 @@ import {
   PieChart,
   Sector,
 } from "recharts";
-
+import { useEffect }from "react";
 const data = [
   { mes: "Jan", receitas: 3000, despesas: 1500, saldo: 1500 },
   { mes: "Fev", receitas: 2800, despesas: 1800, saldo: 1000 },
@@ -42,7 +43,14 @@ const customColorsPie = () => {
     <Sector fill={colors[index % 2]}></Sector>;
   });
 };
+
+
+
+
 export const Dashboard = () => {
+
+  useAuth();
+
   return (
     <div className={styles.main}>
       <Header nome="Dashboard"></Header>
