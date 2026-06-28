@@ -1,7 +1,7 @@
 import styles from './EstruturaPrincipal.module.css';
 import { Siderbar } from '../Components/Siderbar';
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from '../function/useAuth';
+import { useAuth } from '../customHooks/useAuth';
 
 export function EstruturaPrincipal() {
   const token = localStorage.getItem('token');

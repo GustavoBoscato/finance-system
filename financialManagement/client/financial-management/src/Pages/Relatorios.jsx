@@ -1,6 +1,6 @@
 import { Header } from "../Components/Header"
 import styles from './Relatorios.module.css'
-import{ useAuth }from "../function/useAuth";
+import { useAuth } from '../customHooks/useAuth';
 export const Relatorios = () => {
     useAuth();
     return (

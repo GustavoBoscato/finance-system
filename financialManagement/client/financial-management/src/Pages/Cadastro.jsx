@@ -2,37 +2,14 @@ import { useState } from "react";
 import styles from "./Cadastro.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import {CadastrarAPI} from "../function/CadastrarAPI";
 export const Cadastro = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const cadastrarAPI = async (email, name, password) => {
-    const body = {
-      email,
-      name,
-      password,
-    };
-
-    try {
-      const response = await fetch("http://localhost:3000/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      const data = await response.json();
-      console.log(data);
-      navigate("/login");
-
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  
 
   return (
     <div className={styles.divCadastroTudo}>
@@ -41,9 +18,15 @@ export const Cadastro = () => {
       </div>
 
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          cadastrarAPI(email, name, password);
+          const response = await CadastrarAPI(email, name, password);
+          if (response) {
+            navigate("/login");
+          } else {
+            console.log("Cadastro falhou");
+          }
+
         }}
         className={styles.form}
       >

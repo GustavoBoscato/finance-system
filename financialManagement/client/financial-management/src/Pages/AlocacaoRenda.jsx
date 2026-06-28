@@ -1,6 +1,6 @@
 import { Header } from "../Components/Header"
 import styles from './AlocacaoRenda.module.css';
-import { useAuth } from "../function/useAuth";
+import { useAuth } from '../customHooks/useAuth';
 export const AlocacaoRenda = () => {
     useAuth();
     return (

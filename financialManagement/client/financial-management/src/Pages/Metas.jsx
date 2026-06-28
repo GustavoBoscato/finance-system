@@ -1,6 +1,6 @@
 import { Header } from "../Components/Header";
 import styles from './Metas.module.css';
-import {useAuth} from "../function/useAuth";
+import { useAuth } from '../customHooks/useAuth';
 export const Metas = () => {
     useAuth();
     return (

@@ -1,7 +1,7 @@
 import { Card } from "../Components/Card";
 import { Header } from "../Components/Header";
 import styles from "./Dashboard.module.css";
-import { useAuth } from "../function/useAuth";
+import { useAuth } from "../customHooks/useAuth";
 import {
   CartesianGrid,
   Legend,
