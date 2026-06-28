@@ -1,7 +1,7 @@
 const urlPrincipal = 'http://localhost:3000/fixedIncome';
 
 
-const receitaFixaAPI = (url, method, body) => {
+export const receitaFixaAPI = (url, method, body) => {
 
     return fetch(url , {
         method: method,
@@ -22,23 +22,23 @@ const receitaFixaAPI = (url, method, body) => {
     });
 }
 
-const BuscarTodasReceitasFixas = () => {
+export const BuscarTodasReceitasFixas = () => {
     return receitaFixaAPI(urlPrincipal + '/search', 'GET')       
 }
 
-const BuscarReceitaFixaPorNome = (nome) => {
+export const BuscarReceitaFixaPorNome = (nome) => {
     return receitaFixaAPI(urlPrincipal + `/search/${nome}`, 'GET');
 }
 
-const CriarReceitaFixa = (nome, descricao, valor) => {
+export const CriarReceitaFixa = (nome, descricao, valor) => {
     return receitaFixaAPI(urlPrincipal + '/create', 'POST', { name: nome, description: descricao, value: valor });
 }
 
-const AtualizarReceitaFixa = (nome, descricao, valor, cor) => {
+export const AtualizarReceitaFixa = (nome, descricao, valor, cor) => {
     return receitaFixaAPI(urlPrincipal + `/update/${nome}`, 'PUT', { description: descricao, value: valor, color: cor });
 }
 
-const DeletarReceitaFixa = (nome) => {
+export const DeletarReceitaFixa = (nome) => {
     return receitaFixaAPI(urlPrincipal + `/delete/${nome}`, 'DELETE');
 }
     
