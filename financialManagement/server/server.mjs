@@ -20,9 +20,9 @@ app.use(cors({
 }));
 
 app.use('/user', userRoutes)
-app.use( '/' ,AuthRouter,() => {});
+app.use( '/' ,AuthRouter);
 app.use('/fixedExpense', AuthMiddleware, fixedExpensiveRoutes)
-app.use('/fixedIncome', AuthMiddleware, fixedIncomeRoutes);
+app.use('/fixedIncome',AuthMiddleware, fixedIncomeRoutes);
 app.use('/variableExpense', AuthMiddleware, variableExpenseRouter);
 app.use('/variableIncome', AuthMiddleware, variableIncomeRoutes);
 app.listen(3000, async () => {

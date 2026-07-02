@@ -19,6 +19,7 @@ export async function AuthMiddleware(req, res, next) {
 
         req.user = verifyToken;
         console.log(req.user)
+        console.log('Auth middleware funcionando')
         next()
     } catch (error) {
         return res.status(500).json({error: error});   

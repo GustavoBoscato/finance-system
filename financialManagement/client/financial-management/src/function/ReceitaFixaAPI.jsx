@@ -16,8 +16,8 @@ export const CriarReceitaFixa = (nome, descricao, valor) => {
     return ApiReceitaDespesa(urlPrincipal + '/create', 'POST', { name: nome, description: descricao, value: valor });
 }
 
-export const AtualizarReceitaFixa = (nome, descricao, valor, cor) => {
-    return ApiReceitaDespesa(urlPrincipal + `/update/${nome}`, 'PUT', { description: descricao, value: valor, color: cor });
+export const AtualizarReceitaFixa = (id,nome, descricao, valor, cor) => {
+    return ApiReceitaDespesa(urlPrincipal + `/update/${id}`, 'PUT', { name: nome, description: descricao, value: valor, color: cor });
 }
 
 export const DeletarReceitaFixa = (nome) => {

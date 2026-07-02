@@ -16,13 +16,10 @@ import { Op } from "sequelize";
     } 
     export async function getAllFixedExpenseService() {
         const expenses = await FixedExpense.findAll();
-        if (expenses.length === 0) {
-            throw new Error('Expense not found')
-        };
         return expenses
     }
     export async function createFixedExpenseService(data) {
-        const {name, description, color, value} = data;
+        const {name, description, color, value} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             

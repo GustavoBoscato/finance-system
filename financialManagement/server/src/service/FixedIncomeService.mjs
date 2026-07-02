@@ -16,13 +16,10 @@ import { Op } from "sequelize";
     } 
     export async function getAllFixedIncomeService() {
         const Incomes = await FixedIncome.findAll();
-        if (Incomes.length === 0) {
-            throw new Error('Income not found')
-        };
         return Incomes
     }
     export async function createFixedIncomeService(data) {
-        const {name, description, color, value} = data;
+        const {name, description, color, value} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             
@@ -39,6 +36,8 @@ import { Op } from "sequelize";
 
     }
     export async function updateFixedIncomeService(dataParams, dataBody) {
+        console.log("PARAMS:", dataParams);
+        console.log("BODY:", dataBody);
         const {id} = dataParams;
         const {name, description, value, color} = dataBody;
         

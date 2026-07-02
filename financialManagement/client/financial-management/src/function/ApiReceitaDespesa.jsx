@@ -8,11 +8,14 @@ export const ApiReceitaDespesa = async (url, method, body) => {
             },
             body: body ? JSON.stringify(body) : null
         });
+        console.log(response);
         if (!response.ok) {
-            
-            throw new Error('Erro na requisição');
+            const error = await response.json();
+            throw new Error(error.message || error.error);
         }
-        return response.json();
+        const data = await response.json();
+        console.log('Resposta da API:', data);
+        return data;
 
     } catch (error) {
         console.error('Error:', error.message);

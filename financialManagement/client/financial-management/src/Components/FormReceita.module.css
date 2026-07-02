@@ -1,0 +1,23 @@
+.form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.form textarea{
+    resize:none;
+
+    min-height:120px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:var(--bg-primary);
+
+    border:1px solid var(--border-color);
+
+    color:var(--text-primary);
+
+    font-family:inherit;
+}

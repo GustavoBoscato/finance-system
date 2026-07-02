@@ -16,13 +16,10 @@ import { Op } from "sequelize";
     } 
     export async function getAllVariableIncomeService() {
         const Incomes = await VariableIncome.findAll();
-        if (expenses.length === 0) {
-            throw new Error('Income not found')
-        };
         return Incomes
     }
     export async function createVariableIncomeService(data) {
-        const {name, description, color, value} = data;
+        const {name, description, color, value} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             

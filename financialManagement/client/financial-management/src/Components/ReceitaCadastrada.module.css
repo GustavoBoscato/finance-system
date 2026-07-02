@@ -1,0 +1,81 @@
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s;
+}
+.card:hover {
+  border-color: var(--purple-main);
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+.info h3 {
+  font-size: 18px;
+  color: var(--text-primary);
+}
+.info span {
+  font-size: 16px;
+  color: var(--success);
+  font-weight: 600;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.buttons svg {
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buttons button {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.buttons button:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.infoIcon {
+  color: var(--text-secondary);
+}
+
+.infoIcon:hover {
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.editIcon {
+  color: var(--purple-main);
+}
+
+.editIcon:hover {
+  color: var(--purple-neon);
+  transform: scale(1.1);
+}
+
+.deleteIcon {
+  color: var(--danger);
+}
+
+.deleteIcon:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}

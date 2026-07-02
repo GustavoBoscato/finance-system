@@ -13,11 +13,11 @@ export async function getNameFixedIncome(req, res) {
 export async function getAllFixedIncome(req, res) {
     try {
         const Incomes = await getAllFixedIncomeService();
-    
+        console.log('getAllController funcionando')
         return res.status(200).json(Incomes)
 
     } catch (error) {
-        return res.status(400).json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 }
 
@@ -25,7 +25,8 @@ export async function createFixedIncome(req, res) {
    
 
     try {
-        const IncomesCreate = await createFixedIncomeService(req.body);
+        
+        const IncomesCreate = await createFixedIncomeService(req);
 
         return res.status(201).json({
             name: IncomesCreate.name,
@@ -41,6 +42,8 @@ export async function createFixedIncome(req, res) {
 export async function updateFixedIncome(req, res) {
     
     try {
+        console.log("PARAMS: controller", req.params);
+        console.log("BODY: controller", req.body);
         const fixedUpdated = await updateFixedIncomeService(req.params, req.body);
         
         return res.status(200).json(fixedUpdated);
@@ -52,7 +55,7 @@ export async function updateFixedIncome(req, res) {
 export async function deleteFixedIncome(req, res) {
     try {
         await deleteFixedIncomeService(req.params);
-        return res.status(204).json({message: 'Deleted with sucessfully'})
+        return res.status(200).json({message: 'Deleted with sucessfully'})
     } catch (error) {
         return res.status(400).json({error: error.message});
     }

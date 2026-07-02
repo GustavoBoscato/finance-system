@@ -18,7 +18,7 @@ export async function getAllFixedExpense(req, res) {
         return res.status(200).json(expenses)
 
     } catch (error) {
-        return res.status(400).json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 }
 
@@ -26,7 +26,7 @@ export async function createFixedExpense(req, res) {
    
 
     try {
-        const ExpenseCreate = await createFixedExpenseService(req.body);
+        const ExpenseCreate = await createFixedExpenseService(req);
 
         return res.status(201).json({
             name: ExpenseCreate.name,
@@ -52,7 +52,7 @@ export async function updateFixedExpense(req, res) {
 export async function deleteFixedExpense(req, res) {
     try {
         await deleteFixedUpdateService(req.params);
-        return res.status(204).json({message: 'Deleted with sucessfully'})
+        return res.status(200).json({message: 'Deleted with sucessfully'})
     } catch (error) {
         return res.status(400).json({error: error.message});
     }

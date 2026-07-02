@@ -18,7 +18,7 @@ export async function getAllVariableIncome(req, res) {
         return res.status(200).json(Incomes)
 
     } catch (error) {
-        return res.status(400).json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 }
 
@@ -26,7 +26,7 @@ export async function createVariableIncome(req, res) {
    
 
     try {
-        const IncomeCreate = await createVariableIncomeService(req.body);
+        const IncomeCreate = await createVariableIncomeService(req);
 
         return res.status(201).json({
             name: IncomeCreate.name,
@@ -52,7 +52,7 @@ export async function updateVariableIncome(req, res) {
 export async function deleteVariableIncome(req, res) {
     try {
         await deleteVariableIncomeService(req.params);
-        return res.status(204).json({message: 'Deleted with sucessfully'})
+        return res.status(200).json({message: 'Deleted with sucessfully'})
     } catch (error) {
         return res.status(400).json({error: error.message});
     }

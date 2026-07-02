@@ -16,9 +16,6 @@ import { Op } from "sequelize";
     } 
     export async function getAllVariableExpenseService() {
         const expenses = await VariableExpense.findAll();
-        if (expenses.length === 0) {
-            throw new Error('Expense not found')
-        };
         return expenses
     }
     export async function createVariableExpenseService(data) {
