@@ -19,7 +19,7 @@ import { Op } from "sequelize";
         return Incomes
     }
     export async function createVariableIncomeService(data) {
-        const {name, description, color, value} = data.body;
+        const {name, description, value, color} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             
@@ -36,6 +36,8 @@ import { Op } from "sequelize";
 
     }
     export async function updateVariableIncomeService(dataParams, dataBody) {
+        console.log("PARAMS:", dataParams);
+        console.log("BODY:", dataBody);
         const {id} = dataParams;
         const {name, description, value, color} = dataBody;
 

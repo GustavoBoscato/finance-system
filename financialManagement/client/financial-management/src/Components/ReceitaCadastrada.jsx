@@ -4,7 +4,7 @@ import { FaEye } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Modal } from "./Modal";
 import { FormReceita } from "./FormReceita";
-import {AtualizarReceitaFixa} from "../function/ReceitaFixaAPI";
+
 import { useState } from "react";
 
 export const ReceitaCadastrada = ({
@@ -16,7 +16,8 @@ export const ReceitaCadastrada = ({
   onExcluir,
   carregarDados
 }) => {
-  const [modalAberta, setModalAberta] = useState(false);
+  const [modalAbertaAtualizar, setModalAbertaAtualizar] = useState(false);
+  const [modalAbertaLer, setModalAbertaLer] = useState(false);
 
   return (
     <div className={styles.card}>
@@ -25,24 +26,37 @@ export const ReceitaCadastrada = ({
         <span>R$ {valor}</span>
       </div>
       <Modal
-          aberto={modalAberta}
-          fechar={() => setModalAberta(false)}
+          aberto={modalAbertaAtualizar}
+          fechar={() => setModalAbertaAtualizar(false)}
           titulo="Cadastrar Receita Fixa"
       >
       
-          <FormReceita item={item} carregarDados={carregarDados} atualizarReceita={AtualizarReceitaFixa} fecharModal={() => setModalAberta(false)}/>
+          <FormReceita item={item} carregarDados={carregarDados} atualizarReceita={onEditar} modo="atualizar" fecharModal={() => setModalAbertaAtualizar(false)}/>
+          
+      </Modal>
+      <Modal
+          aberto={modalAbertaLer}
+          fechar={() => setModalAbertaLer(false)}
+          titulo="Cadastrar Receita Fixa"
+      >
       
+          <FormReceita item={item} carregarDados={carregarDados} modo="visualizar" fecharModal={() => setModalAbertaLer(false)}/>
+          
       </Modal>
       <div className={styles.buttons}>
         <FaEye
           className={styles.infoIcon}
-          onClick={onInfo}
+          onClick={
+            async () => {
+              setModalAbertaLer(true)
+              await carregarDados();
+            }
+          }
         />
         <FiEdit
           className={styles.editIcon}
           onClick={async ()=>{
-            setModalAberta(true)
-            
+            setModalAbertaAtualizar(true)
             await carregarDados();
 
           }}

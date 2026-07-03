@@ -42,7 +42,9 @@ export async function createVariableIncome(req, res) {
 export async function updateVariableIncome(req, res) {
     
     try {
-        const IncomeUpdated = await IncomeService(req.params, req.body);
+        console.log("PARAMS:controller", req.params);
+        console.log("BODY controller:", req.body);
+        const IncomeUpdated = await updateVariableIncomeService(req.params, req.body);
         return res.status(200).json(IncomeUpdated);
            
     } catch (error) {

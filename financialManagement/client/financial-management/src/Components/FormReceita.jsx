@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./FormReceita.module.css";
 
 export const FormReceita = ({
@@ -6,18 +6,37 @@ export const FormReceita = ({
   criarReceita,
   fecharModal,
   atualizarReceita,
-  item
+  modo,
+  item,
 }) => {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
 
+  useEffect(() => {
+    if (item) {
+      setNome(item.name || "");
+      setDescricao(item.description || "");
+      setValor(item.value || "");
+    }
+  }, [item]);
+
   const enviarFormulario = async (e) => {
     e.preventDefault();
-    if (criarReceita) {
-      await criarReceita(nome, descricao, valor);
-    } else if (atualizarReceita) {
-      await atualizarReceita(item.id, nome, descricao, Number(valor));
+    switch (modo) {
+      case "criar":
+        if (criarReceita) {
+          await criarReceita(nome, descricao, valor);
+        }
+        break;
+      case "atualizar":
+        if (atualizarReceita) {
+          await atualizarReceita(item.id, nome, descricao, Number(valor));
+        }
+        break;
+
+      default:
+        return;
     }
     setNome("");
     setDescricao("");
@@ -32,12 +51,14 @@ export const FormReceita = ({
         placeholder="Nome da Receita"
         value={nome}
         onChange={(e) => setNome(e.target.value)}
+        readOnly={modo === "visualizar"}
       />
 
       <textarea
         placeholder="Descrição"
         value={descricao}
         onChange={(e) => setDescricao(e.target.value)}
+        readOnly={modo === "visualizar"}
       />
 
       <input
@@ -45,11 +66,13 @@ export const FormReceita = ({
         placeholder="Valor"
         value={valor}
         onChange={(e) => setValor(e.target.value)}
+        readOnly={modo === "visualizar"}
       />
-
-      <button className="btn-primary" type="submit">
-        Salvar Receita
-      </button>
+      {modo !== "visualizar" && (
+        <button className="btn-primary" type="submit">
+          Salvar Receita
+        </button>
+      )}
     </form>
   );
 };

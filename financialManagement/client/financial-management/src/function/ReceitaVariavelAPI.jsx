@@ -14,8 +14,8 @@ export const CriarReceitaVariavel = (nome, descricao, valor) => {
     return ApiReceitaDespesa(urlPrincipal + '/create', 'POST', { name: nome, description: descricao, value: valor });
 }
 
-export const AtualizarReceitaVariavel = (nome, descricao, valor, cor) => {
-    return ApiReceitaDespesa(urlPrincipal + `/update/${nome}`, 'PUT', { name: nome, description: descricao, value: valor, color: cor });
+export const AtualizarReceitaVariavel = (id ,nome, descricao, valor, cor) => {
+    return ApiReceitaDespesa(urlPrincipal + `/update/${id}`, 'PUT', { name: nome, description: descricao, value: valor, color: cor });
 }
 
 export const DeletarReceitaVariavel = (nome) => {

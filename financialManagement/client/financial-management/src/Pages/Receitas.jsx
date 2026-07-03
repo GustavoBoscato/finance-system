@@ -4,7 +4,7 @@ import { useAuth } from "../customHooks/useAuth";
 import { useEffect, useState } from "react";
 import { ReceitaCadastrada } from "../Components/ReceitaCadastrada";
 import { BuscarTodasReceitasFixas} from "../function/ReceitaFixaAPI";
-import { BuscarTodasReceitasVariaveis } from "../function/ReceitaVariavelAPI";
+import { AtualizarReceitaVariavel, BuscarTodasReceitasVariaveis } from "../function/ReceitaVariavelAPI";
 import { Modal } from "../Components/Modal";
 import { FormReceita } from "../Components/FormReceita";
 import { CriarReceitaFixa } from "../function/ReceitaFixaAPI";
@@ -12,7 +12,6 @@ import { CriarReceitaVariavel } from "../function/ReceitaVariavelAPI";
 import { DeletarReceitaFixa } from "../function/ReceitaFixaAPI";
 import { DeletarReceitaVariavel } from "../function/ReceitaVariavelAPI";
 import { AtualizarReceitaFixa } from "../function/ReceitaFixaAPI";
-
 
 export const Receitas = () => {
   useAuth();
@@ -110,13 +109,13 @@ export const Receitas = () => {
         <Modal
     aberto={modalAbertaVariavel}
     fechar={() => setModalAbertaVariavel(false)}
-    titulo="Cadastrar Receita Variável"ddd
->
+    titulo="Cadastrar Receita Variável">
 
     <FormReceita
        carregarDados={carregarDados}
        criarReceita={CriarReceitaVariavel}
        fecharModal={() => setModalAbertaVariavel(false)}
+       modo="criar"
     />
 
 </Modal>
@@ -126,7 +125,7 @@ export const Receitas = () => {
     titulo="Cadastrar Receita Fixa"
 >
 
-    <FormReceita carregarDados={carregarDados} criarReceita={CriarReceitaFixa} fecharModal={() => setModalAbertaFixa(false)}/>
+    <FormReceita modo="criar" carregarDados={carregarDados} criarReceita={CriarReceitaFixa} fecharModal={() => setModalAbertaFixa(false)}/>
 
 </Modal>
         <div className="card">
@@ -147,7 +146,7 @@ export const Receitas = () => {
                   valor={item.value}
                   item={item}
                   onInfo={() => console.log("Info", item)}
-                  onEditar={() => AtualizarReceitaFixa}
+                  onEditar={AtualizarReceitaFixa}
                   carregarDados={carregarDados}
                   onExcluir={DeletarReceitaFixa}
                 />
@@ -176,7 +175,7 @@ export const Receitas = () => {
                   valor={item.value}
                   item={item}
                   onInfo={() => console.log("Info", item)}
-                  onEditar={() => console.log("Editar", item)}
+                  onEditar={AtualizarReceitaVariavel}
                   carregarDados={carregarDados}
                   onExcluir={DeletarReceitaVariavel}
                 />
