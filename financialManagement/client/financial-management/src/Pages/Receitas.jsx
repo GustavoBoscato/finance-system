@@ -3,21 +3,22 @@ import styles from "./Receitas.module.css";
 import { useAuth } from "../customHooks/useAuth";
 import { useEffect, useState } from "react";
 import { ReceitaCadastrada } from "../Components/ReceitaCadastrada";
-import { BuscarTodasReceitasFixas} from "../function/ReceitaFixaAPI";
-import { AtualizarReceitaVariavel, BuscarTodasReceitasVariaveis } from "../function/ReceitaVariavelAPI";
+import { BuscarTodasReceitasFixas} from "../util/ReceitaFixaAPI";
+import { AtualizarReceitaVariavel, BuscarTodasReceitasVariaveis } from "../util/ReceitaVariavelAPI";
 import { Modal } from "../Components/Modal";
 import { FormReceita } from "../Components/FormReceita";
-import { CriarReceitaFixa } from "../function/ReceitaFixaAPI";
-import { CriarReceitaVariavel } from "../function/ReceitaVariavelAPI";
-import { DeletarReceitaFixa } from "../function/ReceitaFixaAPI";
-import { DeletarReceitaVariavel } from "../function/ReceitaVariavelAPI";
-import { AtualizarReceitaFixa } from "../function/ReceitaFixaAPI";
+import { CriarReceitaFixa } from "../util/ReceitaFixaAPI";
+import { CriarReceitaVariavel } from "../util/ReceitaVariavelAPI";
+import { DeletarReceitaFixa } from "../util/ReceitaFixaAPI";
+import { DeletarReceitaVariavel } from "../util/ReceitaVariavelAPI";
+import { AtualizarReceitaFixa } from "../util/ReceitaFixaAPI";
 import { Pie, PieChart, Cell} from "recharts";
 import { ResponsiveContainer } from "recharts";
 import { Tooltip } from "recharts";
 import { Legend } from "recharts";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
-import {gerarGrafico} from "../function/gerarGrafico"
+import {gerarGraficoAcumulativo} from "../util/gerarGrafico"
+import {gerarGraficoPizza} from "../util/gerarGraficoPizza"
 export const Receitas = () => {
   useAuth();
 
@@ -27,21 +28,9 @@ export const Receitas = () => {
   const [modalAbertaFixa, setModalAbertaFixa] = useState(false);
   const [modalAbertaVariavel, setModalAbertaVariavel] = useState(false);
   const [dadosGraficoAcumulativo, setDadosGraficoAcumulativo] = useState([]);
+  const [dadosGraficoPizza, setDadosGraficoPizza] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const dataPie = [
-  { name: "Necessidades", value: 50, fill: "#8B5CF6" },
-  { name: "Lazer", value: 30, fill: "#22C55E" },
-  { name: "Investimentos", value: 20, fill: "#EF4444" },
-];
-const data = [
-  { mes: "Jan", receitas: 3000, despesas: 1500, saldo: 1500 },
-  { mes: "Fev", receitas: 2800, despesas: 1800, saldo: 1000 },
-  { mes: "Mar", receitas: 3200, despesas: 2000, saldo: 1200 },
-  { mes: "Abr", receitas: 2500, despesas: 2200, saldo: 300 },
-  { mes: "Mai", receitas: 4000, despesas: 2600, saldo: 1400 },
-  { mes: "Jun", receitas: 3500, despesas: 3000, saldo: 500 },
-];
 
   // Simulação de fetch inicial
 
@@ -52,11 +41,12 @@ const data = [
         
         setReceitasFixas(fixas);
         setReceitasVariaveis(variaveis);
-        setDadosGraficoAcumulativo(gerarGrafico(fixas, variaveis));
+        setDadosGraficoAcumulativo(gerarGraficoAcumulativo(fixas, variaveis));
+        setDadosGraficoPizza(gerarGraficoPizza(fixas, variaveis));
         const totalVariavel = variaveis.reduce((acc, item) => acc + item.value, 0);
         const totalFixo = fixas.reduce((acc, item) => acc + item.value, 0);
         
-        console.log(gerarGrafico(fixas, variaveis), "Gerar gráfico");
+        console.log(gerarGraficoAcumulativo(fixas, variaveis), "Gerar gráfico");
         console.log("Receitas fixas carregadas:", totalFixo);
         console.log("Receitas variáveis carregadas:", totalVariavel);
       } catch (error) {
@@ -141,7 +131,7 @@ const data = [
                         <PieChart
                   >
                           <Pie
-                            data={dataPie}
+                            data={dadosGraficoPizza}
                             dataKey="value"
                             nameKey="name"
                             cx="50%"

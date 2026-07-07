@@ -1,4 +1,4 @@
- export const gerarGrafico = (fixas, variaveis) => {
+ export const gerarGraficoAcumulativo = (fixas, variaveis) => {
 
     const valorMesTotal = new Array(12).fill(0);
     

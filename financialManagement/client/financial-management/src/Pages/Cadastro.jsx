@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Cadastro.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {CadastrarAPI} from "../function/CadastrarAPI";
+import {CadastrarAPI} from "../util/CadastrarAPI";
 export const Cadastro = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
