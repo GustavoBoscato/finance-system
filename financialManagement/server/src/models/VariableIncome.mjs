@@ -8,6 +8,10 @@ export const VariableIncome = sequelize.define('variableIncome', {
         description: DataTypes.STRING,
         color: DataTypes.STRING,
         value: DataTypes.FLOAT,
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
          id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,

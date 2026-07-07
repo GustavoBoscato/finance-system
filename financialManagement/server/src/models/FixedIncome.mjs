@@ -21,4 +21,8 @@ export const FixedIncome = sequelize.define("fixedIncome", {
     type: DataTypes.UUID,
     allowNull: false,
   },
+  date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        }
 });

@@ -19,7 +19,7 @@ import { Op } from "sequelize";
         return Incomes
     }
     export async function createVariableIncomeService(data) {
-        const {name, description, value, color} = data.body;
+        const {name, description, value, color, date} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             
@@ -29,7 +29,8 @@ import { Op } from "sequelize";
             description: description,
             color: color,
             value: value,
-            userId: data.user.id
+            userId: data.user.id,
+            date: date
         });
 
         return IncomeCreate;
@@ -39,7 +40,7 @@ import { Op } from "sequelize";
         console.log("PARAMS:", dataParams);
         console.log("BODY:", dataBody);
         const {id} = dataParams;
-        const {name, description, value, color} = dataBody;
+        const {name, description, value, color, date} = dataBody;
 
         if (!name || !value) {
             throw new Error('Name or value invalid');
@@ -55,7 +56,8 @@ import { Op } from "sequelize";
             name: name,
             description: description,
             value: value,
-            color: color
+            color: color,
+            date: date
         }, {where: {id}});
 
         return `Income changed with sucessfully`;

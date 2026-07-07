@@ -11,13 +11,16 @@ export const FormReceita = ({
 }) => {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [data, setData] = useState("");
   const [valor, setValor] = useState("");
 
   useEffect(() => {
     if (item) {
       setNome(item.name || "");
       setDescricao(item.description || "");
+      setData(item.date || "");
       setValor(item.value || "");
+      console.log(data, "Data", item.date)
     }
   }, [item]);
 
@@ -26,12 +29,12 @@ export const FormReceita = ({
     switch (modo) {
       case "criar":
         if (criarReceita) {
-          await criarReceita(nome, descricao, valor);
+          await criarReceita(nome, descricao, valor, data);
         }
         break;
       case "atualizar":
         if (atualizarReceita) {
-          await atualizarReceita(item.id, nome, descricao, Number(valor));
+          await atualizarReceita(item.id, nome, descricao, Number(valor), data);
         }
         break;
 
@@ -41,6 +44,7 @@ export const FormReceita = ({
     setNome("");
     setDescricao("");
     setValor("");
+    setData("");
     await carregarDados();
     fecharModal();
   };
@@ -66,6 +70,17 @@ export const FormReceita = ({
         placeholder="Valor"
         value={valor}
         onChange={(e) => setValor(e.target.value)}
+        readOnly={modo === "visualizar"}
+      />
+      <input
+        type="date"
+        placeholder="Data"
+        value={data.split("T")[0]}
+        onChange={(e) => {setData(e.target.value)
+        console.log(data, "Data", item.date)}}
+        
+        
+        
         readOnly={modo === "visualizar"}
       />
       {modo !== "visualizar" && (

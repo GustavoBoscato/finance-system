@@ -12,7 +12,12 @@ import { CriarReceitaVariavel } from "../function/ReceitaVariavelAPI";
 import { DeletarReceitaFixa } from "../function/ReceitaFixaAPI";
 import { DeletarReceitaVariavel } from "../function/ReceitaVariavelAPI";
 import { AtualizarReceitaFixa } from "../function/ReceitaFixaAPI";
-
+import { Pie, PieChart, Cell} from "recharts";
+import { ResponsiveContainer } from "recharts";
+import { Tooltip } from "recharts";
+import { Legend } from "recharts";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+import {gerarGrafico} from "../function/gerarGrafico"
 export const Receitas = () => {
   useAuth();
 
@@ -21,8 +26,22 @@ export const Receitas = () => {
 
   const [modalAbertaFixa, setModalAbertaFixa] = useState(false);
   const [modalAbertaVariavel, setModalAbertaVariavel] = useState(false);
-
+  const [dadosGraficoAcumulativo, setDadosGraficoAcumulativo] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const dataPie = [
+  { name: "Necessidades", value: 50, fill: "#8B5CF6" },
+  { name: "Lazer", value: 30, fill: "#22C55E" },
+  { name: "Investimentos", value: 20, fill: "#EF4444" },
+];
+const data = [
+  { mes: "Jan", receitas: 3000, despesas: 1500, saldo: 1500 },
+  { mes: "Fev", receitas: 2800, despesas: 1800, saldo: 1000 },
+  { mes: "Mar", receitas: 3200, despesas: 2000, saldo: 1200 },
+  { mes: "Abr", receitas: 2500, despesas: 2200, saldo: 300 },
+  { mes: "Mai", receitas: 4000, despesas: 2600, saldo: 1400 },
+  { mes: "Jun", receitas: 3500, despesas: 3000, saldo: 500 },
+];
 
   // Simulação de fetch inicial
 
@@ -30,14 +49,14 @@ export const Receitas = () => {
       try {
         const fixas = await BuscarTodasReceitasFixas();
         const variaveis = await BuscarTodasReceitasVariaveis();
-
+        
         setReceitasFixas(fixas);
         setReceitasVariaveis(variaveis);
-        
+        setDadosGraficoAcumulativo(gerarGrafico(fixas, variaveis));
         const totalVariavel = variaveis.reduce((acc, item) => acc + item.value, 0);
         const totalFixo = fixas.reduce((acc, item) => acc + item.value, 0);
-  
-    
+        
+        console.log(gerarGrafico(fixas, variaveis), "Gerar gráfico");
         console.log("Receitas fixas carregadas:", totalFixo);
         console.log("Receitas variáveis carregadas:", totalVariavel);
       } catch (error) {
@@ -91,7 +110,26 @@ export const Receitas = () => {
           <h3>Receita ao longo do tempo</h3>
           <div className={styles.placeholder}>
             {/* futuro gráfico de linha */}
-            Gráfico de linha aqui
+            <ResponsiveContainer
+                        style={{ marginLeft: 20 }}
+                        width="80%"
+                        height={300}
+                      >
+                        <LineChart data={dadosGraficoAcumulativo}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="mes" />
+                          <YAxis/>
+                          <Tooltip/>
+                          <Legend/>
+                          <Line
+                            name="Receitas"
+                            type="monotone"
+                            dataKey="receitas"
+                            stroke="var(--success)"
+                            strokeWidth={3}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
           </div>
         </div>
 
@@ -99,7 +137,22 @@ export const Receitas = () => {
           <h3>Fixa vs Variável</h3>
           <div className={styles.placeholder}>
             {/* futuro gráfico de pizza */}
-            Gráfico de pizza aqui
+            <ResponsiveContainer width="100%" height={350}>
+                        <PieChart
+                  >
+                          <Pie
+                            data={dataPie}
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={140}
+                            innerRadius={20}
+                          ></Pie>
+                          <Tooltip />
+                          <Legend />
+                        </PieChart>
+                      </ResponsiveContainer>
           </div>
         </div>
       </div>

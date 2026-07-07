@@ -19,7 +19,7 @@ import { Op } from "sequelize";
         return expenses
     }
     export async function createFixedExpenseService(data) {
-        const {name, description, color, value} = data.body;
+        const {name, description, color, value, date} = data.body;
         if (!name || !value) {
             throw new Error('Name or value invalid');
             
@@ -30,6 +30,7 @@ import { Op } from "sequelize";
             color: color,
             value: value,
             userId: data.user.id,
+            date: date
         });
 
         return `Expense changed with sucessfully`;
@@ -37,7 +38,7 @@ import { Op } from "sequelize";
     }
     export async function updateFixedExpenseService(dataParams, dataBody) {
         const {id} = dataParams;
-        const {name, description, value, color} = dataBody;
+        const {name, description, value, color, date} = dataBody;
 
         if (!name || !value) {
             throw new Error('Name or value invalid');
@@ -53,7 +54,8 @@ import { Op } from "sequelize";
             name: name,
             description: description,
             value: value,
-            color: color
+            color: color,
+            date: date
         }, {where: {id}});
 
         return expenseUpdated;

@@ -9,12 +9,12 @@ export const BuscarDespesaVariavelPorNome = (nome) => {
     return ApiReceitaDespesa(urlPrincipal + `/search/${nome}`, 'GET');
 }
 
-export const CriarDespesaVariavel = (nome, descricao, valor) => {
-    return ApiReceitaDespesa(urlPrincipal + '/create', 'POST', { name: nome, description: descricao, value: valor });
+export const CriarDespesaVariavel = (nome, descricao, valor, data) => {
+    return ApiReceitaDespesa(urlPrincipal + '/create', 'POST', { name: nome, description: descricao, value: valor, date: data });
 }
 
-export const AtualizarDespesaVariavel = (nome, descricao, valor, cor) => {
-    return ApiReceitaDespesa(urlPrincipal + `/update/${nome}`, 'PUT', { description: descricao, value: valor, color: cor });
+export const AtualizarDespesaVariavel = (nome, descricao, valor, data) => {
+    return ApiReceitaDespesa(urlPrincipal + `/update/${nome}`, 'PUT', { description: descricao, value: valor, date: data });
 }
 
 export const DeletarDespesaVariavel = (nome) => {
