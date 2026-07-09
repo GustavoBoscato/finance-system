@@ -3,8 +3,11 @@ import styles from "./Receitas.module.css";
 import { useAuth } from "../customHooks/useAuth";
 import { useEffect, useState } from "react";
 import { ReceitaCadastrada } from "../Components/ReceitaCadastrada";
-import { BuscarTodasReceitasFixas} from "../util/ReceitaFixaAPI";
-import { AtualizarReceitaVariavel, BuscarTodasReceitasVariaveis } from "../util/ReceitaVariavelAPI";
+import { BuscarTodasReceitasFixas } from "../util/ReceitaFixaAPI";
+import {
+  AtualizarReceitaVariavel,
+  BuscarTodasReceitasVariaveis,
+} from "../util/ReceitaVariavelAPI";
 import { Modal } from "../Components/Modal";
 import { FormReceita } from "../Components/FormReceita";
 import { CriarReceitaFixa } from "../util/ReceitaFixaAPI";
@@ -12,13 +15,21 @@ import { CriarReceitaVariavel } from "../util/ReceitaVariavelAPI";
 import { DeletarReceitaFixa } from "../util/ReceitaFixaAPI";
 import { DeletarReceitaVariavel } from "../util/ReceitaVariavelAPI";
 import { AtualizarReceitaFixa } from "../util/ReceitaFixaAPI";
-import { Pie, PieChart, Cell} from "recharts";
-import { ResponsiveContainer } from "recharts";
-import { Tooltip } from "recharts";
-import { Legend } from "recharts";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
-import {gerarGraficoAcumulativo} from "../util/gerarGrafico"
-import {gerarGraficoPizza} from "../util/gerarGraficoPizza"
+import {
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Cell
+} from "recharts";
+import { gerarGraficoAcumulativo } from "../util/gerarGrafico";
+import { gerarGraficoPizza } from "../util/gerarGraficoPizza";
 export const Receitas = () => {
   useAuth();
 
@@ -28,38 +39,43 @@ export const Receitas = () => {
   const [modalAbertaFixa, setModalAbertaFixa] = useState(false);
   const [modalAbertaVariavel, setModalAbertaVariavel] = useState(false);
   const [dadosGraficoAcumulativo, setDadosGraficoAcumulativo] = useState([]);
-  const [dadosGraficoPizza, setDadosGraficoPizza] = useState([]);
+  const [dadosGraficoPizza, setDadosGraficoPizza] = useState([
+    { name: "Receitas Fixas", value: 50, fill: "var(--purple-main)" },
+    { name: "Receitas Variáveis", value: 50, fill: "var(--success)" },
+  ]);
   const [loading, setLoading] = useState(true);
-
 
   // Simulação de fetch inicial
 
   const carregarDados = async () => {
-      try {
-        const fixas = await BuscarTodasReceitasFixas();
-        const variaveis = await BuscarTodasReceitasVariaveis();
-        
-        setReceitasFixas(fixas);
-        setReceitasVariaveis(variaveis);
-        setDadosGraficoAcumulativo(gerarGraficoAcumulativo(fixas, variaveis));
-        setDadosGraficoPizza(gerarGraficoPizza(fixas, variaveis));
-        const totalVariavel = variaveis.reduce((acc, item) => acc + item.value, 0);
-        const totalFixo = fixas.reduce((acc, item) => acc + item.value, 0);
-        
-        console.log(gerarGraficoAcumulativo(fixas, variaveis), "Gerar gráfico");
-        console.log("Receitas fixas carregadas:", totalFixo);
-        console.log("Receitas variáveis carregadas:", totalVariavel);
-      } catch (error) {
-        console.error("Erro ao carregar receitas:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      const fixas = await BuscarTodasReceitasFixas();
+      const variaveis = await BuscarTodasReceitasVariaveis();
 
-  useEffect( () => {
+      setReceitasFixas(fixas);
+      setReceitasVariaveis(variaveis);
+      setDadosGraficoAcumulativo(gerarGraficoAcumulativo(fixas, variaveis));
+      setDadosGraficoPizza(gerarGraficoPizza(fixas, variaveis));
+      const totalVariavel = variaveis.reduce(
+        (acc, item) => acc + item.value,
+        0,
+      );
+      const totalFixo = fixas.reduce((acc, item) => acc + item.value, 0);
+
+      console.log(gerarGraficoAcumulativo(fixas, variaveis), "Gerar gráfico");
+      console.log("Receitas fixas carregadas:", totalFixo);
+      console.log("Receitas variáveis carregadas:", totalVariavel);
+    } catch (error) {
+      console.error("Erro ao carregar receitas:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     const init = async () => {
       await carregarDados();
-    }
+    };
     init();
   }, []);
 
@@ -80,17 +96,37 @@ export const Receitas = () => {
       <div className={styles.resumo}>
         <div className="card">
           <h3>Receita Total</h3>
-          <p className={styles.valor}>R$ {parseFloat(receitasFixas.reduce((acc, item) => acc + item.value, 0).toFixed(2)) + parseFloat(receitasVariaveis.reduce((acc, item) => acc + item.value, 0).toFixed(2))}</p>
+          <p className={styles.valor}>
+            R${" "}
+            {(
+              parseFloat(
+                receitasFixas.reduce((acc, item) => acc + item.value, 0),
+              ) +
+              parseFloat(
+                receitasVariaveis.reduce((acc, item) => acc + item.value, 0),
+              )
+            ).toFixed(2)}
+          </p>
         </div>
 
         <div className="card">
           <h3>Receita Fixa</h3>
-          <p className={styles.valor}>R$ {receitasFixas.reduce((acc, item) => acc + item.value, 0).toFixed(2)}</p>
+          <p className={styles.valor}>
+            R${" "}
+            {receitasFixas
+              .reduce((acc, item) => acc + item.value, 0)
+              .toFixed(2)}
+          </p>
         </div>
 
         <div className="card">
           <h3>Receita Variável</h3>
-          <p className={styles.valor}>R$ {receitasVariaveis.reduce((acc, item) => acc + item.value, 0).toFixed(2)}</p>
+          <p className={styles.valor}>
+            R${" "}
+            {receitasVariaveis
+              .reduce((acc, item) => acc + item.value, 0)
+              .toFixed(2)}
+          </p>
         </div>
       </div>
 
@@ -101,25 +137,25 @@ export const Receitas = () => {
           <div className={styles.placeholder}>
             {/* futuro gráfico de linha */}
             <ResponsiveContainer
-                        style={{ marginLeft: 20 }}
-                        width="80%"
-                        height={300}
-                      >
-                        <LineChart data={dadosGraficoAcumulativo}>
-                          <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis dataKey="mes" />
-                          <YAxis/>
-                          <Tooltip/>
-                          <Legend/>
-                          <Line
-                            name="Receitas"
-                            type="monotone"
-                            dataKey="receitas"
-                            stroke="var(--success)"
-                            strokeWidth={3}
-                          />
-                        </LineChart>
-                      </ResponsiveContainer>
+              style={{ marginLeft: 20 }}
+              width="80%"
+              height={220}
+            >
+              <LineChart data={dadosGraficoAcumulativo}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="mes" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  name="Receitas"
+                  type="monotone"
+                  dataKey="receitas"
+                  stroke="var(--success)"
+                  strokeWidth={3}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -127,22 +163,30 @@ export const Receitas = () => {
           <h3>Fixa vs Variável</h3>
           <div className={styles.placeholder}>
             {/* futuro gráfico de pizza */}
-            <ResponsiveContainer width="100%" height={350}>
-                        <PieChart
-                  >
-                          <Pie
-                            data={dadosGraficoPizza}
-                            dataKey="value"
-                            nameKey="name"
-                            cx="50%"
-                            cy="50%"
-                            outerRadius={140}
-                            innerRadius={20}
-                          ></Pie>
-                          <Tooltip />
-                          <Legend />
-                        </PieChart>
-                      </ResponsiveContainer>
+            <ResponsiveContainer width="70%" height={200}>
+              <PieChart>
+                <Pie
+ data={dadosGraficoPizza}
+ dataKey="value"
+ nameKey="name"
+ cx="50%"
+ cy="50%"
+ outerRadius={100}
+ innerRadius={16}
+>
+ {
+  dadosGraficoPizza.map((entry, index) => (
+    <Cell 
+      key={`cell-${index}`}
+      fill={entry.fill}
+    />
+  ))
+ }
+</Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
@@ -150,31 +194,36 @@ export const Receitas = () => {
       {/* CRUD */}
       <div className={styles.crud}>
         <Modal
-    aberto={modalAbertaVariavel}
-    fechar={() => setModalAbertaVariavel(false)}
-    titulo="Cadastrar Receita Variável">
-
-    <FormReceita
-       carregarDados={carregarDados}
-       criarReceita={CriarReceitaVariavel}
-       fecharModal={() => setModalAbertaVariavel(false)}
-       modo="criar"
-    />
-
-</Modal>
-<Modal
-    aberto={modalAbertaFixa}
-    fechar={() => setModalAbertaFixa(false)}
-    titulo="Cadastrar Receita Fixa"
->
-
-    <FormReceita modo="criar" carregarDados={carregarDados} criarReceita={CriarReceitaFixa} fecharModal={() => setModalAbertaFixa(false)}/>
-
-</Modal>
+          aberto={modalAbertaVariavel}
+          fechar={() => setModalAbertaVariavel(false)}
+          titulo="Cadastrar Receita Variável"
+        >
+          <FormReceita
+            carregarDados={carregarDados}
+            criarReceita={CriarReceitaVariavel}
+            fecharModal={() => setModalAbertaVariavel(false)}
+            modo="criar"
+          />
+        </Modal>
+        <Modal
+          aberto={modalAbertaFixa}
+          fechar={() => setModalAbertaFixa(false)}
+          titulo="Cadastrar Receita Fixa"
+        >
+          <FormReceita
+            modo="criar"
+            carregarDados={carregarDados}
+            criarReceita={CriarReceitaFixa}
+            fecharModal={() => setModalAbertaFixa(false)}
+          />
+        </Modal>
         <div className="card">
           <div className={styles.crudHeader}>
             <h3>Receitas Fixas</h3>
-            <button className="btn-primary" onClick={() => setModalAbertaFixa(true)}>
+            <button
+              className="btn-primary"
+              onClick={() => setModalAbertaFixa(true)}
+            >
               + Nova Receita
             </button>
           </div>
@@ -183,7 +232,7 @@ export const Receitas = () => {
             <p className="text-muted">Nenhuma receita fixa cadastrada</p>
           ) : (
             receitasFixas.map((item, index) => (
-              <div key={index} className={styles.item}>
+              <div key={item.id} className={styles.item}>
                 <ReceitaCadastrada
                   nome={item.name}
                   valor={item.value}
@@ -201,18 +250,19 @@ export const Receitas = () => {
         <div className="card">
           <div className={styles.crudHeader}>
             <h3>Receitas Variáveis</h3>
-            <button className="btn-primary" onClick={() => setModalAbertaVariavel(true)}>
+            <button
+              className="btn-primary"
+              onClick={() => setModalAbertaVariavel(true)}
+            >
               + Nova Receita
             </button>
           </div>
-          
+
           {receitasVariaveis.length === 0 ? (
             <p className="text-muted">Nenhuma receita variável cadastrada</p>
           ) : (
             receitasVariaveis.map((item, index) => (
-          
-    
-              <div key={index} className={styles.item}>
+              <div key={item.id} className={styles.item}>
                 <ReceitaCadastrada
                   nome={item.name}
                   valor={item.value}
