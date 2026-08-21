@@ -15,6 +15,7 @@ import { CriarReceitaVariavel } from "../util/ReceitaVariavelAPI";
 import { DeletarReceitaFixa } from "../util/ReceitaFixaAPI";
 import { DeletarReceitaVariavel } from "../util/ReceitaVariavelAPI";
 import { AtualizarReceitaFixa } from "../util/ReceitaFixaAPI";
+import { useReceitas } from "../customHooks/useReceitas";
 import {
   Pie,
   PieChart,
@@ -33,44 +34,20 @@ import { gerarGraficoPizza } from "../util/gerarGraficoPizza";
 export const Receitas = () => {
   useAuth();
 
-  const [receitasFixas, setReceitasFixas] = useState([]);
-  const [receitasVariaveis, setReceitasVariaveis] = useState([]);
-
   const [modalAbertaFixa, setModalAbertaFixa] = useState(false);
   const [modalAbertaVariavel, setModalAbertaVariavel] = useState(false);
-  const [dadosGraficoAcumulativo, setDadosGraficoAcumulativo] = useState([]);
-  const [dadosGraficoPizza, setDadosGraficoPizza] = useState([
-    { name: "Receitas Fixas", value: 50, fill: "var(--purple-main)" },
-    { name: "Receitas Variáveis", value: 50, fill: "var(--success)" },
-  ]);
   const [loading, setLoading] = useState(true);
 
   // Simulação de fetch inicial
-
-  const carregarDados = async () => {
-    try {
-      const fixas = await BuscarTodasReceitasFixas();
-      const variaveis = await BuscarTodasReceitasVariaveis();
-
-      setReceitasFixas(fixas);
-      setReceitasVariaveis(variaveis);
-      setDadosGraficoAcumulativo(gerarGraficoAcumulativo(fixas, variaveis));
-      setDadosGraficoPizza(gerarGraficoPizza(fixas, variaveis));
-      const totalVariavel = variaveis.reduce(
-        (acc, item) => acc + item.value,
-        0,
-      );
-      const totalFixo = fixas.reduce((acc, item) => acc + item.value, 0);
-
-      console.log(gerarGraficoAcumulativo(fixas, variaveis), "Gerar gráfico");
-      console.log("Receitas fixas carregadas:", totalFixo);
-      console.log("Receitas variáveis carregadas:", totalVariavel);
-    } catch (error) {
-      console.error("Erro ao carregar receitas:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    receitasFixas,
+    receitasVariaveis,
+    dadosGraficoAcumulativo,
+    dadosGraficoPizza,
+    totalVariavel,
+    totalFixo
+  } = useReceitas();
+ 
 
   useEffect(() => {
     const init = async () => {
